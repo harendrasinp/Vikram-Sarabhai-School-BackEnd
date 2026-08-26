@@ -1,4 +1,4 @@
-import uploadOnCloudinary, { cloudinary } from "../../utils/cloudinary.js";
+import uploadOnCloudinary, { cloudinary, configCloudinary } from "../../utils/cloudinary.js";
 import galleryModel from "./models/Gallery.model.js";
 import DropDownitemModel from "./models/dropdownItem.model.js";
 class galleryRepository {
@@ -12,6 +12,7 @@ class galleryRepository {
         return response
     }
     async uploadCloudinary(uploadData) {
+        configCloudinary()
         console.log(uploadData.path)
         const response = await uploadOnCloudinary(uploadData.path, uploadData.category)
         const dbResponse = await galleryModel.create(
@@ -29,18 +30,28 @@ class galleryRepository {
         return response
     }
     async EditdropdowItem(oldName, newName) {
+        configCloudinary()
+        const oldEventName = oldName.toUpperCase();
+        const newEventName = newName.toUpperCase();
+        console.log(oldEventName)
+        console.log(newEventName)
 
         await DropDownitemModel.findOneAndUpdate(
-            { DropDownItem: oldName.toUpperCase() },
-            { $set: { DropDownItem: newName.toUpperCase() } }
+            { DropDownItem: oldEventName },
+            { $set: { DropDownItem: newEventName } }
         );
 
         await galleryModel.updateMany(
-            { EventName: oldName.toUpperCase() },
-            { $set: { EventName: newName.toUpperCase() } }
+            { EventName: oldEventName },
+            { $set: { EventName: newEventName } }
+        );
+        await cloudinary.api.rename_folder(
+            `Rf-Gallery/${oldEventName}`,
+            `Rf-Gallery/${newEventName}`
         );
 
         return await DropDownitemModel.find();
+
     }
     async DeleteEvent(eventName) {
         const EventResponse = await DropDownitemModel.deleteOne({ DropDownItem: eventName })
