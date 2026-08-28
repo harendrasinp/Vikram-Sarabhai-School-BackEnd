@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary"
 import fs from "fs"
+import streamifier from "streamifier";
 
 const configCloudinary=()=>{
      cloudinary.config({
@@ -8,20 +9,25 @@ const configCloudinary=()=>{
         api_secret: process.env.CLOUDINARY_API_SECRET
     });
 }
-const uploadOnCloudinary = async (localFilePath,folderName) => {
-   configCloudinary()
-    try {
-        if (!localFilePath) return null;
+const uploadOnCloudinary = async (buffer,folderName) => {
+    return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+            {
+                resource_type: "image",
+                folder: `Rf-Gallery/${folderName.toUpperCase()}`,
+            },
+            (error, result) => {
+                if (error) {
+                    console.error("Cloudinary upload error:", error);
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            }
+        );
 
-        const response = await cloudinary.uploader.upload(localFilePath,
-            { resource_type: "auto", folder: `Rf-Gallery/${folderName.toUpperCase()}` }
-        )
-        fs.unlinkSync(localFilePath)
-        return response
-    } catch (error) {
-        fs.unlinkSync(localFilePath)
-        throw new Error("Cloudinary upload failed");
-    }
+        streamifier.createReadStream(buffer).pipe(uploadStream);
+    });
 }
 export {cloudinary,configCloudinary}
 export default uploadOnCloudinary;

@@ -17,14 +17,25 @@ class galleryController {
         try {
             const { category, year } = req.body
             if (!req.file || !category || !year) {
-                return res.status(400).json({ success: false, message: "Upload Image and Fill All Fields" })
+                return res.status(400).json({ 
+                    success: false, 
+                    message: "Upload Image and Fill All Fields" })
             }
-            const { path } = req.file;
-            const response=await galleryRepository.uploadCloudinary({ category, year, path })
-            return res.status(200).json({ success: true, message: "Image Uploaded Successfuly",responseData:response })
+            const response = await galleryRepository.uploadCloudinary({
+                category, 
+                year, 
+                buffer: req.file.buffer,
+                originalname: req.file.originalname
+            })
+            return res.status(200).json({ 
+                success: true, 
+                message: "Image Uploaded Successfuly",
+                responseData: response })
 
         } catch (error) {
-            return res.status(500).json({ success: false, message: error.message })
+            return res.status(500).json({ 
+                success: false, 
+                message: error.message })
         }
     }
     async getDropDownList(req, res) {
@@ -35,22 +46,22 @@ class galleryController {
             return res.status(500).json({ success: false, message: error.message })
         }
     }
-    async EditdropdowItem(req,res){
-        try{
-            const{oldName,newName}=req.body
-            const response=await galleryRepository.EditdropdowItem(oldName,newName)
-            res.status(200).json({success:true,data:response})
-        }catch(error){
-            res.status(400).json({success:false,message:"Something Went Wrong"})
+    async EditdropdowItem(req, res) {
+        try {
+            const { oldName, newName } = req.body
+            const response = await galleryRepository.EditdropdowItem(oldName, newName)
+            res.status(200).json({ success: true, data: response })
+        } catch (error) {
+            res.status(400).json({ success: false, message: "Something Went Wrong" })
         }
     }
-    async DeleteEvent(req,res){
-        try{
-            const {eventName}=req.body
-            const response=await galleryRepository.DeleteEvent(eventName)
+    async DeleteEvent(req, res) {
+        try {
+            const { eventName } = req.body
+            const response = await galleryRepository.DeleteEvent(eventName)
             return res.status(200).json(response)
-        }catch(error){
-            return res.status(500).json({success:false,message:error.message})
+        } catch (error) {
+            return res.status(500).json({ success: false, message: error.message })
         }
     }
     async getEventTitle(req, res) {
@@ -92,18 +103,18 @@ class galleryController {
     }
     async getEditImages(req, res) {
         try {
-            const{EditCategory,EditYear} = req.body
+            const { EditCategory, EditYear } = req.body
             const response = await galleryRepository.getEditImages(EditCategory, EditYear)
             return res.status(200).json({ success: true, data: response })
         } catch (error) {
             return res.status(500).json({ success: false, message: error.message })
         }
     }
-    async deleteImage(req,res){
-        try{
-            const{imageId}=req.params
-            const response=await galleryRepository.deleteImage(imageId)
-            return res.status(200).json({ success: true, message: "Image Deleted Successfully",data:response })
+    async deleteImage(req, res) {
+        try {
+            const { imageId } = req.params
+            const response = await galleryRepository.deleteImage(imageId)
+            return res.status(200).json({ success: true, message: "Image Deleted Successfully", data: response })
         } catch (error) {
             return res.status(500).json({ success: false, message: error.message })
         }
