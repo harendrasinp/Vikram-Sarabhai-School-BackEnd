@@ -13,6 +13,7 @@ class galleryRepository {
     }
     async uploadCloudinary(uploadData) {
         configCloudinary()
+        console.log("uploadData", uploadData)
         console.log(uploadData.path)
         const response = await uploadOnCloudinary(uploadData.path, uploadData.category)
         const dbResponse = await galleryModel.create(
