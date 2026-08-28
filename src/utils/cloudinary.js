@@ -9,7 +9,7 @@ const configCloudinary=()=>{
     });
 }
 const uploadOnCloudinary = async (localFilePath,folderName) => {
-   
+   configCloudinary()
     try {
         if (!localFilePath) return null;
 
