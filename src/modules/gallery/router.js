@@ -9,7 +9,7 @@ GalleryRouter.get("/getEventTitle",galleryController.getEventTitle)
 GalleryRouter.get("/getTitleImage",galleryController.getTitleImage)
 GalleryRouter.get("/getDropDownList",galleryController.getDropDownList)
 GalleryRouter.get("/gallery/:event",galleryController.getYears)
-GalleryRouter.post("/getYearImage",galleryController.getYearImage)
+GalleryRouter.get("/getYearImage/:eventName/:year",galleryController.getYearImage)
 
 GalleryRouter.post("/uploadImage",upload.single("image"),authMiddleware,galleryController.uploadImage)
 GalleryRouter.post("/dropdowItem",authMiddleware,galleryController.dropDownItem)

@@ -91,11 +91,11 @@ class galleryController {
     }
     async getYearImage(req, res) {
         try {
-            const { EventName, selecterYear } = req.body
-            if (!EventName || !selecterYear) {
+            const { eventName, year } = req.params
+            if (!eventName || !year) {
                 return res.status(400).json({ success: false, message: "Please Provide Event Name and Year" })
             }
-            const response = await galleryRepository.getYearImage(EventName, selecterYear)
+            const response = await galleryRepository.getYearImage(eventName, year)
             return res.status(200).json({ success: true, data: response })
         } catch (error) {
             return res.status(500).json({ success: false, message: error.message })
