@@ -8,6 +8,7 @@ import GalleryRouter from "./src/modules/gallery/router.js"
 import ContactRouter from "./src/modules/contact/router.js"
 import cookieParser from "cookie-parser";
 import homeRouter from "./src/modules/home/router.js";
+import NoticeRouter from "./src/modules/notice/router.js";
 const app = express()
 
 app.use(cookieParser());
@@ -23,6 +24,7 @@ app.use("/admin",AboutRouter)
 app.use("/admin",GalleryRouter)
 app.use("/admin",ContactRouter)
 app.use("/admin",homeRouter)
+app.use("/admin",NoticeRouter)
 
 
 export default app

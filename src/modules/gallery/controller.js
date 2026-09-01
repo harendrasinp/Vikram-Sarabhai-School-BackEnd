@@ -1,4 +1,3 @@
-import { json } from "express";
 import galleryRepository from "../gallery/repository.js"
 class galleryController {
     async dropDownItem(req, res) {
