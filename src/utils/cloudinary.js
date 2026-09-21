@@ -15,7 +15,7 @@ const uploadOnCloudinary = async (buffer, folderName) => {
         const uploadStream = cloudinary.uploader.upload_stream(
             {
                 resource_type: "image",
-                folder: `Rf-Gallery/${folderName.toUpperCase()}`,
+                folder: `Vikram_Sarabhai_Gallery/${folderName.toUpperCase()}`,
             },
             (error, result) => {
                 if (error) {
@@ -45,7 +45,7 @@ const uploadPdfOnCloudinary = async (
         const uploadStream = cloudinary.uploader.upload_stream(
             {
                 resource_type: "image",
-                folder: `Rf-PDF/${folderName.toUpperCase()}`,
+                folder: `Vikram_Sarabhai_PDF/${folderName.toUpperCase()}`,
                 public_id: fileName,
                 format: "pdf",
             },

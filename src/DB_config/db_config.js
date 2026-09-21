@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 // dotenv.config();    
 const connectDB = async () => {
     try {
-        const url = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@rfschool.vqufhsw.mongodb.net/${process.env.DB_NAME}?appName=RfSchool`;
+        const url = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@vikramsarabhai.f1uftkd.mongodb.net/${process.env.DB_NAME}?appName=VssSchool`;
 
         await mongoose.connect(url);
 
