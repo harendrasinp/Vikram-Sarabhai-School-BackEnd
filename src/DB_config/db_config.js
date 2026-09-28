@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
-// import dotenv from "dotenv";
-
-// dotenv.config();    
+  
 const connectDB = async () => {
     try {
         const url = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@vikramsarabhai.f1uftkd.mongodb.net/${process.env.DB_NAME}?appName=VssSchool`;
