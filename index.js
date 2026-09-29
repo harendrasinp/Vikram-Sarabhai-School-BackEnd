@@ -13,7 +13,8 @@ const app = express()
 
 app.use(cookieParser());
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://192.168.31.136:3000',"https://vikram-sarabhai-school-bardoli.vercel.app"],
+    origin: ['http://localhost:3000', 'http://192.168.31.136:3000',
+        "https://vikram-sarabhai-school-bardoli.vercel.app"],
     credentials: true
 })) 
 
